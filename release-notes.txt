@@ -1,0 +1,5 @@
+RELEASE 1
+- Working hangman game. 
+- Backend just get the scores but nothing more yet like order, id or password.
+- Scores shows in cloud. 
+- Still a lot of work to do, but I think this is a good start.

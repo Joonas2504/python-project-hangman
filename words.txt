@@ -1,0 +1,50 @@
+    DOG
+    CAT
+    ELEPHANT
+    TIGER
+    LION
+    ZEBRA
+    GIRAFFE
+    HIPPOPOTAMUS
+    RHINOCEROS
+    GORILLA
+    KANGAROO
+    KOALA
+    PANDA
+    GRIZZLY BEAR
+    POLAR BEAR
+    BLACK BEAR
+    BROWN BEAR
+    WOLF
+    FOX
+    COYOTE
+    RACCOON
+    SKUNK
+    BADGER
+    BEAVER
+    OTTER
+    DEER
+    MOOSE
+    ELK
+    CARIBOU
+    CAMEL
+    LLAMA
+    ALPACA
+    HORSE
+    DONKEY
+    MULE
+    SHEEP
+    GOAT
+    COW
+    PIG
+    CHICKEN
+    DUCK
+    GOOSE
+    TURKEY
+    OSTRICH
+    EMU
+    CROCODILE
+    ALLIGATOR
+    KOMODO DRAGON
+    IGUANA
+    SNAKE
