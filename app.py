@@ -2,6 +2,7 @@ import random
 import time
 import requests
 import re
+from datetime import timedelta
 
 def main():
     exit_menu = False
@@ -209,32 +210,39 @@ def is_name(name):
 
 # Function to send a high score to the server
 def send_highscore(name, time):
+    # Convert time to an integer
+    time_in_seconds = int(time)
+    # Convert seconds to minutes and seconds
+    minutes, seconds = divmod(time_in_seconds, 60)
+    # Format the time string as "MM:SS"
+    time_str = f"{minutes:02d}:{seconds:02d}"
     # Set the URL for the high score API endpoint
     url = 'http://localhost:5000/highscores'
     # Create a dictionary containing the name and time data
-    data = {'name': name, 'time': time}
+    data = {'name': name, 'time': time_str}
     # Send a POST request to the server with the high score data
     response = requests.post(url, json=data)
     # Check the response status code to see if the high score was successfully sent
     if response.status_code == 200:
         print('High score sent successfully!')
     else:
-        print('Error sending high score')
+        print(f'Error sending high score: {response.content}')
 
-# Function to display the high scores retrieved from the server
 def high_scores():
     # Send a GET request to the high scores API endpoint
     response = requests.get('http://localhost:5000/highscores')
-    # Parse the JSON response into a Python dictionary
+    # Parse the JSON response into a Python list
     highscores = response.json()
     # Display the high scores in the console
     print("High Scores:")
-    for name, time in highscores.items():
+    for score in highscores:
+        name = score['name']
+        time = int(score['time'])
         if time >= 60:
             minutes = time // 60
             seconds = time % 60
-            print(f"{minutes}:{seconds:02d}, {name}")
+            print(f"{minutes}min {seconds}sec, {name}")
         else:
-            print(f"{time}, {name}")
+            print(f"{time}sec, {name}")
 
 main()

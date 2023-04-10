@@ -3,3 +3,13 @@ RELEASE 1
 - Backend just get the scores but nothing more yet like order, id or password.
 - Scores shows in cloud. 
 - Still a lot of work to do, but I think this is a good start.
+
+RELEASE 2
+- Highscores in min and sec. Check
+- ID. Check
+- Saves top 50 scores.
+- Fetch scores (asc.order, by id, with limit)
+- Add score.
+- Deleting score by id.
+- Display highscores in html file format.
+- Password.
