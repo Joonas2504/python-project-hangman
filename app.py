@@ -30,7 +30,14 @@ def get_sorted_high_scores():
     # Sort the high scores by time in ascending order
     sorted_scores = sorted(high_scores.values(), key=lambda x: x['time'])
 
+    # Format the time strings in the high scores as "MM:SS"
+    for score in sorted_scores:
+        time_in_seconds = score['time']
+        minutes, seconds = divmod(time_in_seconds, 60)
+        score['time'] = f"{minutes:02d}:{seconds:02d}"
+
     return sorted_scores
+
 
 @app.route('/highscores')
 def get_high_scores():
