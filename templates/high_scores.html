@@ -4,29 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-    <head>
-      <title>High Scores</title>
-    </head>
-    <body>
-      <h1>High Scores</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for score in high_scores %}
-          <tr>
-            <td>{{ score[0] }}</td>
-            <td>{{ score[1] }}</td>
-            <td>{{ score[2] }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </body>
+  <title>High Scores</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h1>High Scores</h1>
+  <table>
+      <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Time</th>
+      </tr>
+      <!-- Use a for loop to iterate over the high_scores_formatted list and display each score in a table row -->
+      {% for score in high_scores %}
+      <tr>
+          <td>{{ score[0] }}</td>
+          <td>{{ score[1] }}</td>
+          <td>{{ score[2] }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+</body>
 </html>

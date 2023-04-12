@@ -198,12 +198,8 @@ _|___""")
 
 
 def is_name(name):
-    if not type(name) is str:
-        raise TypeError("Only strings are allowed")
-
-    name_regex = "[A-ZÖÄÅ][a-zäöå]+"
-    name_with_dashes_regex = "[A-ZÖÄÅ][a-zäöå]+\-[A-ZÖÄÅ][a-zäöå]+"
-    regex = f"^({name_regex}|{name_with_dashes_regex}) ({name_regex}|{name_with_dashes_regex})$"
+    # Regular expression to check if name is valid
+    regex = r'^[a-zA-Z0-9_-]{2,20}$|^[a-zA-Z0-9_!@-]{2,20}$'
     if re.match(regex, name):
         return name
     return False
@@ -237,7 +233,8 @@ def high_scores():
     print("High Scores:")
     for score in highscores:
         name = score['name']
-        time = int(score['time'])
+        time_parts = score['time'].split(':')
+        time = int(time_parts[0]) * 60 + int(time_parts[1])
         if time >= 60:
             minutes = time // 60
             seconds = time % 60
