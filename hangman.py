@@ -213,7 +213,7 @@ def send_highscore(name, time):
     # Format the time string as "MM:SS"
     time_str = f"{minutes:02d}:{seconds:02d}"
     # Set the URL for the high score API endpoint
-    url = 'http://localhost:5000/highscores'
+    url = 'https://python-project-hangman-46b9.onrender.com/highscores'
     # Create a dictionary containing the name and time data
     data = {'name': name, 'time': time_str}
     # Send a POST request to the server with the high score data
@@ -226,7 +226,7 @@ def send_highscore(name, time):
 
 def high_scores():
     # Send a GET request to the high scores API endpoint
-    response = requests.get('http://localhost:5000/highscores')
+    response = requests.get('https://python-project-hangman-46b9.onrender.com/highscores')
     # Parse the JSON response into a Python list
     highscores = response.json()
     # Display the high scores in the console
