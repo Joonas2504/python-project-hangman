@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
 
-@@ -7,71 +7,121 @@
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
