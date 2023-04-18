@@ -226,7 +226,7 @@ def send_highscore(name, time):
 
 def high_scores():
     # Send a GET request to the high scores API endpoint
-    response = requests.get('https://python-project-hangman-46b9.onrender.com/highscores')
+    response = requests.get('https://python-project-hangman-46b9.onrender.com')
     # Parse the JSON response into a Python list
     highscores = response.json()
     # Display the high scores in the console
