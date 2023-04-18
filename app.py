@@ -1,18 +1,12 @@
-from flask import Flask, request, jsonify, render_template
 from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
 
+app = Flask(__name__)
+
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
-def load_high_scores():
-    try:
-        with open(high_scores_file) as f:
-            high_scores = json.load(f)
-    except FileNotFoundError:
-        # If the file doesn't exist, create an empty dictionary to store the high scores
-        high_scores = {}
 def load_high_scores(reverse=False, limit=None):
     # Open the high scores file
     with open("high_scores.json", "r") as f:
@@ -30,7 +24,6 @@ def load_high_scores(reverse=False, limit=None):
     # Return the list of high scores
     return high_scores
 
-def get_sorted_high_scores():
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
     # Get the values of the "sort" and "limit" query parameters
@@ -61,34 +54,12 @@ def get_high_score(id):
     # Load the high scores from the file
     high_scores = load_high_scores()
 
-    # Convert the time strings in the high scores to integers in seconds
-    for score in high_scores.values():
-        time_str = score['time']
-        minutes, seconds = time_str.split(':')
-        score['time'] = int(minutes) * 60 + int(seconds)
-
-    # Sort the high scores by time in ascending order
-    sorted_scores = sorted(high_scores.values(), key=lambda x: x['time'])
-
-    # Format the time strings in the high scores as "MM:SS"
-    for score in sorted_scores:
-        time_in_seconds = score['time']
-        minutes, seconds = divmod(time_in_seconds, 60)
-        score['time'] = f"{minutes:02d}:{seconds:02d}"
-
-    return sorted_scores
     # Search for the high score with the specified ID
     for score in high_scores:
         if score['id'] == id:
             # Return the high score in JSON format
             return jsonify(score)
 
-
-@app.route('/highscores')
-def get_high_scores():
-    # Return the sorted high scores as JSON
-    sorted_scores = get_sorted_high_scores()
-    return jsonify(sorted_scores)
     # If the high score with the specified ID doesn't exist, return a 404 error
     abort(404)
 
@@ -96,18 +67,10 @@ def get_high_scores():
 def add_high_score():
     # Load the existing high scores from the file
     high_scores = load_high_scores()
-
     # Get the name and time from the request body
     name = request.json.get('name')
     time = request.json.get('time')
-
-    # Compute the new max ID for the new high score
-    max_id = max(int(k) for k in high_scores.keys()) if high_scores else 0
-    new_id = max_id + 1
-
     # Add the new high score to the existing scores
-    high_scores[str(new_id)] = {'name': name, 'time': time}
-
     high_scores.append({'name': name, 'time': time})
     # Sort the high scores by time in ascending order
     high_scores = sorted(high_scores, key=lambda x: x["time"])
@@ -120,7 +83,6 @@ def add_high_score():
     with open(high_scores_file, 'w') as f:
         json.dump(high_scores, f)
 
-    return jsonify({'id': new_id})
     return jsonify({'id': high_scores[-1]['id']})
 
 @app.route('/highscores/<int:id>', methods=['DELETE'])
@@ -150,8 +112,6 @@ def delete_high_score(id):
 
 @app.route('/')
 def display_high_scores():
-    sorted_scores = get_sorted_high_scores()
-    high_scores_sorted = [(id, data['name'], timedelta(seconds=data['time'])) for id, data in enumerate(sorted_scores, 1)]
     # Load the high scores from the high_scores_file
     sorted_scores = load_high_scores()
     # Check if there are any high scores
@@ -165,13 +125,14 @@ def display_high_scores():
     high_scores_formatted = []
     for score in high_scores_sorted:
         if score[2] < timedelta(seconds=60):
-@@ -81,8 +131,8 @@ def display_high_scores():
+            formatted_time = str(score[2].seconds) + "sec"
+        else:
+            formatted_time = str(score[2].minutes) + "min " + str(score[2].seconds % 60) + "sec"
         high_scores_formatted.append((score[0], score[1], formatted_time))
 
     # Pass the high_scores_formatted variable to the render_template function
     # This function generates an HTML page using the high_scores.html template and the high_scores_formatted data
     return render_template('high_scores.html', high_scores=high_scores_formatted)
-
 
 if __name__ == '__main__':
     app.run()
