@@ -46,8 +46,9 @@ def get_high_scores():
     if limit:
         high_scores = high_scores[:limit]
 
-    # Return the high scores in JSON format
-    return jsonify(high_scores)
+    # Render the high_scores.html template with the high_scores data
+    return render_template('high_scores.html', high_scores=high_scores)
+
 
 @app.route('/highscores/<int:id>', methods=['GET'])
 def get_high_score(id):
@@ -57,11 +58,12 @@ def get_high_score(id):
     # Search for the high score with the specified ID
     for score in high_scores:
         if score['id'] == id:
-            # Return the high score in JSON format
-            return jsonify(score)
+            # Render the high_score.html template with the high_score data
+            return render_template('high_score.html', high_score=score)
 
     # If the high score with the specified ID doesn't exist, return a 404 error
     abort(404)
+
 
 @app.route('/highscores', methods=['POST'])
 def add_high_score():
@@ -133,6 +135,7 @@ def display_high_scores():
     # Pass the high_scores_formatted variable to the render_template function
     # This function generates an HTML page using the high_scores.html template and the high_scores_formatted data
     return render_template('high_scores.html', high_scores=high_scores_formatted)
+
 
 if __name__ == '__main__':
     app.run()
