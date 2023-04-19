@@ -3,6 +3,8 @@ import time
 import requests
 import re
 from datetime import timedelta
+import os
+import json
 
 def main():
     exit_menu = False
@@ -204,7 +206,7 @@ def is_name(name):
         return name
     return False
 
-# Function to send a high score to the server
+# Function to send a high score to the server and save it to a local file
 def send_highscore(name, time):
     # Convert time to an integer
     time_in_seconds = int(time)
@@ -223,6 +225,20 @@ def send_highscore(name, time):
         print('High score sent successfully!')
     else:
         print(f'Error sending high score: {response.content}')
+
+    # Save the high score to a local file
+    filename = 'high_scores.json'
+    if os.path.exists(filename):
+        with open(filename, 'r') as f:
+            high_scores = json.load(f)
+    else:
+        high_scores = []
+
+    high_scores.append({'name': name, 'time': time_str})
+
+    with open(filename, 'w') as f:
+        json.dump(high_scores, f, indent=4)
+
 
 def high_scores():
     # Send a GET request to the high scores API endpoint
