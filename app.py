@@ -8,8 +8,6 @@ app = Flask(__name__)
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
-
-
 def load_high_scores(reverse=False, limit=None):
     # Check if the high scores file exists
     if os.path.exists("high_scores.json"):
@@ -18,7 +16,7 @@ def load_high_scores(reverse=False, limit=None):
             # Load the high scores from the file using the json module
             high_scores = json.load(f)
     else:
-        # If the file doesn't exist, create an empty list of high scores
+        # Create a new high scores file with an empty list
         high_scores = []
 
     # If reverse is True, sort the high scores in reverse order
@@ -74,11 +72,11 @@ def get_high_score(id):
 
 @app.route('/highscores', methods=['POST'])
 def add_high_score():
-    # Load the existing high scores from the file
-    high_scores = load_high_scores()
     # Get the name and time from the request body
     name = request.json.get('name')
     time = request.json.get('time')
+    # Load the existing high scores from the file
+    high_scores = load_high_scores()
     # Add the new high score to the existing scores
     high_scores.append({'name': name, 'time': time})
     # Sort the high scores by time in ascending order
@@ -88,10 +86,11 @@ def add_high_score():
     # Assign IDs to the high scores
     for i, score in enumerate(high_scores):
         score['id'] = i + 1
-    # Save the updated high scores to the file
+    # Save the updated high scores to the file with newlines
     with open(high_scores_file, 'w') as f:
-        json.dump(high_scores, f)
-        f.write('\n')
+        for score in high_scores:
+            json.dump(score, f)
+            f.write('\n')
 
     return jsonify({'id': high_scores[-1]['id']})
 
