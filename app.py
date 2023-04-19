@@ -79,6 +79,11 @@ def add_high_score():
     # Assign IDs to the high scores
     for i, score in enumerate(high_scores):
         score['id'] = i + 1
+
+    # Save the updated high scores to the local file
+    with open('high_scores.json', "w") as f:
+        json.dump(high_scores, f)
+
     # Send the response to the client
     return jsonify({'id': high_scores[-1]['id']})
 
