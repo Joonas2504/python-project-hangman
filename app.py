@@ -24,6 +24,12 @@ def load_high_scores(reverse=False, limit=None):
     # Return the list of high scores
     return high_scores
 
+def save_high_scores(high_scores):
+    # Save the updated high scores to the local file
+    with open(high_scores_file, "w") as f:
+        json.dump(high_scores, f)
+
+
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
     # Get the values of the "sort" and "limit" query parameters
@@ -81,9 +87,7 @@ def add_high_score():
         score['id'] = i + 1
 
     # Save the updated high scores to the local file
-    with open(high_scores_file, "w") as f:
-        json.dump(high_scores, f)
-
+    save_high_scores(high_scores)
 
     # Send the response to the client
     return jsonify({'id': high_scores[-1]['id']})
