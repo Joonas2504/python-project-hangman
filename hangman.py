@@ -206,8 +206,15 @@ def is_name(name):
         return name
     return False
 
+import os
+
 # Function to send a high score to the server
 def send_highscore(name, time):
+    # Check if the high_scores.json file exists, if not create an empty file
+    if not os.path.exists('high_scores.json'):
+        with open('high_scores.json', 'w') as f:
+            json.dump([], f)
+    
     # Convert time to an integer
     time_in_seconds = int(time)
     # Convert seconds to minutes and seconds
@@ -248,7 +255,6 @@ def send_highscore(name, time):
         print('High score sent successfully!')
     else:
         print(f'Error sending high score: {response.content}')
-
 
 
 def high_scores():
