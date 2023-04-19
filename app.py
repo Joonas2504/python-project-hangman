@@ -81,7 +81,7 @@ def add_high_score():
         score['id'] = i + 1
 
     # Save the updated high scores to the local file
-    with open("high_scores.json", "w") as f:
+    with open(high_scores, "w") as f:
         json.dump(high_scores, f)
 
     # Send the response to the client
@@ -122,20 +122,20 @@ def display_high_scores():
     if not sorted_scores:
         abort(404)
 
-    high_scores_sorted = [(score['id'], score['name'], timedelta(seconds=int(score['time'].split(':')[1]))) for score in sorted_scores]
+    high_scores_sorted = [(score['id'], score['name'], score['time']) for score in sorted_scores]
 
     # Format the time and append each score to a new list
     high_scores_formatted = []
     for score in high_scores_sorted:
-        if score[2] < timedelta(seconds=60):
-            formatted_time = str(score[2].seconds) + "sec"
-        else:
-            formatted_time = str(score[2].minutes) + "min " + str(score[2].seconds % 60) + "sec"
+        formatted_time = score[2]
+        if len(formatted_time) == 4:
+            formatted_time = "0" + formatted_time
         high_scores_formatted.append((score[0], score[1], formatted_time))
 
     # Pass the high_scores_formatted variable to the render_template function
     # This function generates an HTML page using the high_scores.html template and the high_scores_formatted data
     return render_template('high_scores.html', high_scores=high_scores_formatted)
+
 
 if __name__ == '__main__':
     app.run()
