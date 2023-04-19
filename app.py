@@ -82,6 +82,7 @@ def add_high_score():
     # Save the updated high scores to the file
     with open(high_scores_file, 'w') as f:
         json.dump(high_scores, f)
+        f.write('\n')
 
     return jsonify({'id': high_scores[-1]['id']})
 
