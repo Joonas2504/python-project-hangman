@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
-import os
 
 app = Flask(__name__)
 
@@ -9,15 +8,10 @@ app = Flask(__name__)
 high_scores_file = "high_scores.json"
 
 def load_high_scores(reverse=False, limit=None):
-    # Check if the high scores file exists
-    if os.path.exists("high_scores.json"):
-        # Open the high scores file
-        with open("high_scores.json", "r") as f:
-            # Load the high scores from the file using the json module
-            high_scores = json.load(f)
-    else:
-        # Create a new high scores file with an empty list
-        high_scores = []
+    # Open the high scores file
+    with open("high_scores.json", "r") as f:
+        # Load the high scores from the file using the json module
+        high_scores = json.load(f)
 
     # If reverse is True, sort the high scores in reverse order
     if reverse:
@@ -29,7 +23,6 @@ def load_high_scores(reverse=False, limit=None):
 
     # Return the list of high scores
     return high_scores
-
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
@@ -72,11 +65,11 @@ def get_high_score(id):
 
 @app.route('/highscores', methods=['POST'])
 def add_high_score():
+    # Load the existing high scores from the file
+    high_scores = load_high_scores()
     # Get the name and time from the request body
     name = request.json.get('name')
     time = request.json.get('time')
-    # Load the existing high scores from the file
-    high_scores = load_high_scores()
     # Add the new high score to the existing scores
     high_scores.append({'name': name, 'time': time})
     # Sort the high scores by time in ascending order
@@ -86,11 +79,9 @@ def add_high_score():
     # Assign IDs to the high scores
     for i, score in enumerate(high_scores):
         score['id'] = i + 1
-    # Save the updated high scores to the file with newlines
+    # Save the updated high scores to the file
     with open(high_scores_file, 'w') as f:
-        for score in high_scores:
-            json.dump(score, f)
-            f.write('\n')
+        json.dump(high_scores, f)
 
     return jsonify({'id': high_scores[-1]['id']})
 
