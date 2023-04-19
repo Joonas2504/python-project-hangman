@@ -1,17 +1,25 @@
 from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
+import os
 
 app = Flask(__name__)
 
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
+
+
 def load_high_scores(reverse=False, limit=None):
-    # Open the high scores file
-    with open("high_scores.json", "r") as f:
-        # Load the high scores from the file using the json module
-        high_scores = json.load(f)
+    # Check if the high scores file exists
+    if os.path.exists("high_scores.json"):
+        # Open the high scores file
+        with open("high_scores.json", "r") as f:
+            # Load the high scores from the file using the json module
+            high_scores = json.load(f)
+    else:
+        # If the file doesn't exist, create an empty list of high scores
+        high_scores = []
 
     # If reverse is True, sort the high scores in reverse order
     if reverse:
@@ -23,6 +31,7 @@ def load_high_scores(reverse=False, limit=None):
 
     # Return the list of high scores
     return high_scores
+
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
