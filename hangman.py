@@ -206,7 +206,7 @@ def is_name(name):
         return name
     return False
 
-# Function to send a high score to the server and save it to a local file
+# Function to send a high score to the server
 def send_highscore(name, time):
     # Convert time to an integer
     time_in_seconds = int(time)
@@ -218,6 +218,29 @@ def send_highscore(name, time):
     url = 'https://python-project-hangman-46b9.onrender.com/highscores'
     # Create a dictionary containing the name and time data
     data = {'name': name, 'time': time_str}
+
+    # If the high scores file doesn't exist, create an empty list
+    if not os.path.isfile('high_scores.json'):
+        high_scores = []
+    else:
+        # Otherwise, load the existing high scores from the file
+        with open('high_scores.json', 'r') as f:
+            high_scores = json.load(f)
+
+    # Add the new high score to the list
+    high_scores.append(data)
+    # Sort the high scores by time (in ascending order)
+    high_scores = sorted(high_scores, key=lambda x: x['time'])
+    # Limit the number of high scores to 50
+    high_scores = high_scores[:50]
+    # Assign IDs to the high scores
+    for i, score in enumerate(high_scores):
+        score['id'] = i + 1
+
+    # Write the high scores to the JSON file
+    with open('high_scores.json', 'w') as f:
+        json.dump(high_scores, f, indent=4)
+
     # Send a POST request to the server with the high score data
     response = requests.post(url, json=data)
     # Check the response status code to see if the high score was successfully sent
@@ -226,18 +249,6 @@ def send_highscore(name, time):
     else:
         print(f'Error sending high score: {response.content}')
 
-    # Save the high score to a local file
-    filename = 'high_scores.json'
-    if os.path.exists(filename):
-        with open(filename, 'r') as f:
-            high_scores = json.load(f)
-    else:
-        high_scores = []
-
-    high_scores.append({'name': name, 'time': time_str})
-
-    with open(filename, 'w') as f:
-        json.dump(high_scores, f, indent=4)
 
 
 def high_scores():
