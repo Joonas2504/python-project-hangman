@@ -8,8 +8,16 @@ RELEASE 2
 - Highscores time format min and sec. Check
 - ID. (Pelaaja saa sen id:n mihin sijoittuu. Esim. jos paras aika saa id 1 ja aiempi muuttuu id 2) Check
 - Saves top 50 scores. check
-- Fetch scores (asc.order, by id, with limit) check (desc järjestys top10 ei toimi)
+- Fetch scores (asc.order, by id, with limit) check
 - Add score. Check
 - Deleting score by id. Check
 - Display highscores in html file format. Check
+
+RELEASE 3
+- Password.
+- Good looking html.
+- Tests.
+- If time over minute hides minutes in html (fix).
+
+
 
