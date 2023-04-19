@@ -7,22 +7,18 @@ app = Flask(__name__)
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
-def load_high_scores(reverse=False, limit=None):
-    # Open the high scores file
-    with open("high_scores.json", "r") as f:
-        # Load the high scores from the file using the json module
+def load_high_scores():
+    # Check if the high scores file exists
+    if not os.path.exists('high_scores.json'):
+        with open('high_scores.json', 'w') as f:
+            json.dump([], f)
+
+    # Load the existing high scores from the file
+    with open('high_scores.json', 'r') as f:
         high_scores = json.load(f)
 
-    # If reverse is True, sort the high scores in reverse order
-    if reverse:
-        high_scores = sorted(high_scores, key=lambda k: k['time'], reverse=True)
-
-    # If limit is specified, slice the list of high scores to include only the top n
-    if limit:
-        high_scores = high_scores[:limit]
-
-    # Return the list of high scores
     return high_scores
+
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
