@@ -14,11 +14,6 @@ GET https://python-project-hangman-46b9.onrender.com/highscores?sort=asc&limit=1
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com/highscores?sort=desc&limit=10 
-
-###
-
 DELETE https://python-project-hangman-46b9.onrender.com/highscores/8
 
 ###
-
