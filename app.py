@@ -127,10 +127,12 @@ def delete_high_score(id):
     # Load the list of high scores from the JSON file
     high_scores = load_high_scores()
 
-    # Check if the specified ID exists in the list of high scores
-    if any(score['id'] == id for score in high_scores):
-        # Remove the high score with the specified ID from the list
-        high_scores = [score for score in high_scores if score['id'] != id]
+    # Find the index of the high score with the specified ID
+    index = next((i for i, score in enumerate(high_scores) if score['id'] == id), None)
+
+    if index is not None:
+        # Remove the high score with the specified ID
+        del high_scores[index]
 
         # Write the updated list of high scores back to the JSON file
         try:
@@ -146,6 +148,7 @@ def delete_high_score(id):
     else:
         # If the specified ID does not exist in the list of high scores, return a 404 Not Found error
         abort(404)
+
 
 
 @app.route('/')
