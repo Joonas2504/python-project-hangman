@@ -23,6 +23,7 @@ def main():
         else:
             print("Invalid input. Please enter a valid choice.")
 
+
 def hangman():
     # Select three random words from the list
     words = random.sample(words_to_list(), 3)
@@ -256,13 +257,37 @@ def send_highscore(name, time):
     else:
         print(f'Error sending high score: {response.content}')
 
-
 def high_scores():
-    # Send a GET request to the high scores API endpoint
-    response = requests.get('https://python-project-hangman-46b9.onrender.com/highscores')
-    # Parse the JSON response into a Python list
-    highscores = response.json()
-    # Display the high scores in the console
+    while True:
+        # Send a GET request to the high scores API endpoint
+        response = requests.get('https://python-project-hangman-46b9.onrender.com/highscores')
+        # Parse the JSON response into a Python list
+        highscores = response.json()
+
+        # Display the high scores according to user's choice
+        print("1) Display all scores")
+        print("2) Display scores in descending order")
+        print("3) Display score by ID")
+        print("4) Display top scores")
+        print("5) Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            display_all_scores(highscores)
+        elif choice == "2":
+            display_scores_descending(highscores)
+        elif choice == "3":
+            display_score_by_id(highscores)
+        elif choice == "4":
+            display_top_scores(highscores)
+        elif choice == "5":
+            break
+        else:
+            print("Invalid input. Please enter a valid choice.")
+
+def display_all_scores(highscores):
+    # Display all high scores in the console
     print("High Scores:")
     for score in highscores:
         name = score['name']
@@ -275,4 +300,74 @@ def high_scores():
         else:
             print(f"{time}sec, {name}")
 
+def display_scores_descending(highscores):
+    # Display high scores in descending order in the console
+    sorted_scores = sorted(highscores, key=lambda score: int(score['time'].replace(':', '')), reverse=True)
+    print("High Scores (descending order):")
+    for score in sorted_scores:
+        name = score['name']
+        time_parts = score['time'].split(':')
+        time = int(time_parts[0]) * 60 + int(time_parts[1])
+        if time >= 60:
+            minutes = time // 60
+            seconds = time % 60
+            print(f"{minutes}min {seconds}sec, {name}")
+        else:
+            print(f"{time}sec, {name}")
+
+def display_score_by_id(highscores):
+    # Display a high score by ID in the console
+    while True:
+        score_id = input("Enter the score ID: ")
+        if not score_id.isdigit():
+            print("Invalid input. Please enter a positive integer or type 'exit' to return to the main menu.")
+        else:
+            score_id = int(score_id)
+            break
+    for score in highscores:
+        if score['id'] == score_id:
+            name = score['name']
+            time_parts = score['time'].split(':')
+            time = int(time_parts[0]) * 60 + int(time_parts[1])
+            if time >= 60:
+                minutes = time // 60
+                seconds = time % 60
+                print(f"{minutes}min {seconds}sec, {name}")
+            else:
+                print(f"{time}sec, {name}")
+            return
+    print("Score not found.")
+
+
+def display_top_scores(highscores):
+    # Display top high scores in the console
+    while True:
+        n = input("Enter the number of top scores to display: ")
+        if n.isdigit():
+            n = int(n)
+            break
+        else:
+            print("Invalid input. Please enter a positive integer.")
+
+    # If there are fewer than n high scores, display a message indicating this
+    if len(highscores) < n:
+        print(f"There are only {len(highscores)} high scores to display.")
+
+    else:
+        # Sort the high scores by time in ascending order
+        highscores.sort(key=lambda score: score['time'])
+
+        # Display the top n high scores in the console
+        print(f"Top {n} High Scores:")
+        for i, score in enumerate(highscores[:n]):
+            name = score['name']
+            time_parts = score['time'].split(':')
+            time = int(time_parts[0]) * 60 + int(time_parts[1])
+            if time >= 60:
+                minutes = time // 60
+                seconds = time % 60
+                print(f"{i+1}. {minutes}min {seconds}sec, {name}")
+            else:
+                print(f"{i+1}. {time}sec, {name}")
+        
 main()
