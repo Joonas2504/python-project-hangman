@@ -134,8 +134,8 @@ def delete_high_score(id):
 
         # Write the updated list of high scores back to the JSON file
         try:
-            with open(high_scores_file, 'w') as f:
-                json.dump(high_scores, f)
+            with open('high_scores.json', 'w') as f:
+                json.dump(high_scores, f, indent=4)
         except Exception as e:
             # If there is an error writing to the file, return a 500 Internal Server Error
             print(e)
