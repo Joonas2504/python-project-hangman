@@ -16,11 +16,13 @@ def load_high_scores(reverse=False):
         with open('high_scores.json', 'w') as f:
             json.dump([], f)
 
-    # Load the existing high scores from the file
+    # Load the existing high scores from the file and sort them
     with open('high_scores.json', 'r') as f:
         high_scores = json.load(f)
+        high_scores.sort(key=lambda score: score['time'], reverse=reverse)
 
     return high_scores
+
 
 def hash_password(password):
     # Generate a salt for the password

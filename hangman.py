@@ -320,7 +320,7 @@ def display_score_by_id(highscores):
     while True:
         score_id = input("Enter the score ID: ")
         if not score_id.isdigit():
-            print("Invalid input. Please enter a positive integer or type 'exit' to return to the main menu.")
+            print("Invalid input. Please enter a positive integer")
         else:
             score_id = int(score_id)
             break
