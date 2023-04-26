@@ -207,8 +207,6 @@ def is_name(name):
         return name
     return False
 
-import os
-
 # Function to send a high score to the server
 def send_highscore(name, time):
     # Check if the high_scores.json file exists, if not create an empty file
@@ -223,7 +221,7 @@ def send_highscore(name, time):
     # Format the time string as "MM:SS"
     time_str = f"{minutes:02d}:{seconds:02d}"
     # Set the URL for the high score API endpoint
-    url = 'https://python-project-hangman-46b9.onrender.com/highscores'
+    url = 'https://python-project-hangman-46b9.onrender.com/highscores?password=hirttoukko'
     # Create a dictionary containing the name and time data
     data = {'name': name, 'time': time_str}
 

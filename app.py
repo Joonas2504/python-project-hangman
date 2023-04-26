@@ -125,7 +125,8 @@ def delete_high_score(id):
         return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
 
     # Load the list of high scores from the JSON file
-    high_scores = load_high_scores()
+    with open('high_scores.json', 'r') as f:
+        high_scores = json.load(f)
 
     # Find the index of the high score with the specified ID
     index = next((i for i, score in enumerate(high_scores) if score['id'] == id), None)
@@ -135,19 +136,15 @@ def delete_high_score(id):
         del high_scores[index]
 
         # Write the updated list of high scores back to the JSON file
-        try:
-            with open('high_scores.json', 'w') as f:
-                json.dump(high_scores, f, indent=4)
-        except Exception as e:
-            # If there is an error writing to the file, return a 500 Internal Server Error
-            print(e)
-            abort(500)
+        with open('high_scores.json', 'w') as f:
+            json.dump(high_scores, f, indent=4)
 
         # Return a successful response with a 204 No Content status code
         return make_response("", 204)
     else:
         # If the specified ID does not exist in the list of high scores, return a 404 Not Found error
         abort(404)
+
 
 
 
