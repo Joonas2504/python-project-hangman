@@ -3,13 +3,14 @@ import json
 from datetime import timedelta
 import os
 import password_store
+import bcrypt
 
 app = Flask(__name__)
 
 # Define the path to the high scores file
 high_scores_file = "high_scores.json"
 
-def load_high_scores():
+def load_high_scores(reverse=False):
     # Check if the high scores file exists
     if not os.path.exists('high_scores.json'):
         with open('high_scores.json', 'w') as f:
@@ -31,9 +32,9 @@ def hash_password(password):
 
 def verify_password(password, salt, hashed_password):
     # Hash the password using the salt
-    hashed_input_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    secret_password = bcrypt.hashpw(password.encode('utf-8'), salt)
     # Compare the hashed input password to the hashed password
-    return hashed_input_password == hashed_password
+    return secret_password == hashed_password
 
 
 @app.route('/highscores', methods=['GET'])

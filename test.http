@@ -1,4 +1,4 @@
-GET https://python-project-hangman-46b9.onrender.com/highscores
+GET https://python-project-hangman-46b9.onrender.com/highscores?password=hirttoukko
 
 ###
 
@@ -14,6 +14,6 @@ GET https://python-project-hangman-46b9.onrender.com/highscores?sort=asc&limit=1
 
 ###
 
-DELETE https://python-project-hangman-46b9.onrender.com/highscores/8
+DELETE https://python-project-hangman-46b9.onrender.com/highscores/1
 
 ###
