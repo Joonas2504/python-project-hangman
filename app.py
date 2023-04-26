@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
 import os
+from password import password
 
 app = Flask(__name__)
 
@@ -19,6 +20,20 @@ def load_high_scores():
         high_scores = json.load(f)
 
     return high_scores
+
+def hash_password(password):
+    # Generate a salt for the password
+    salt = bcrypt.gensalt()
+    # Hash the password using the salt
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    # Return the hashed password and the salt
+    return hashed_password, salt
+
+def verify_password(password, salt, hashed_password):
+    # Hash the password using the salt
+    hashed_input_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    # Compare the hashed input password to the hashed password
+    return hashed_input_password == hashed_password
 
 
 @app.route('/highscores', methods=['GET'])
