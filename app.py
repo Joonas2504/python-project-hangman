@@ -23,7 +23,6 @@ def load_high_scores(reverse=False):
 
     return high_scores
 
-
 def hash_password(password):
     # Generate a salt for the password
     salt = bcrypt.gensalt()
@@ -37,7 +36,6 @@ def verify_password(password, salt, hashed_password):
     secret_password = bcrypt.hashpw(password.encode('utf-8'), salt)
     # Compare the hashed input password to the hashed password
     return secret_password == hashed_password
-
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
@@ -68,7 +66,6 @@ def get_high_scores():
 
     # Return the high scores in JSON format
     return jsonify(high_scores)
-
 
 @app.route('/highscores/<int:id>', methods=['GET'])
 def get_high_score(id):
@@ -116,7 +113,6 @@ def add_high_score():
     # Send the response to the client
     return jsonify({'id': high_scores[-1]['id']})
 
-
 @app.route('/highscores/<int:id>', methods=['DELETE'])
 def delete_high_score(id):
     password = request.args.get("password") # Get the password from the query parameters
@@ -144,9 +140,6 @@ def delete_high_score(id):
     else:
         # If the specified ID does not exist in the list of high scores, return a 404 Not Found error
         abort(404)
-
-
-
 
 @app.route('/')
 def display_high_scores():

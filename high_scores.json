@@ -1,11 +1,6 @@
 [
     {
         "name": "Joonas",
-        "time": "00:17",
-        "id": 1
-    },
-    {
-        "name": "Joonas",
         "time": "00:18",
         "id": 2
     },
@@ -22,11 +17,6 @@
     {
         "name": "Vilja",
         "time": "00:24",
-        "id": 5
-    },
-    {
-        "name": "Balto",
-        "time": "00:26",
         "id": 6
     }
 ]
