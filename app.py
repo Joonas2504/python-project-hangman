@@ -115,9 +115,9 @@ def display_high_scores():
     # Load the high scores from the high_scores_file
     sorted_scores = load_high_scores()
     # Check if there are any high scores
-    # If there are no high scores, return a 404 error
+    # If there are no high scores, return empty list
     if not sorted_scores:
-        abort(404)
+        high_scores_formatted = []
 
     high_scores_sorted = [(score['id'], score['name'], score['time']) for score in sorted_scores]
 

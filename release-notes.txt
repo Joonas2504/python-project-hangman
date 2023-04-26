@@ -14,10 +14,16 @@ RELEASE 2
 - Display highscores in html file format. Check
 
 RELEASE 3
-- Password.
-- Good looking html.
-- Tests.
-- If time over minute hides minutes in html (fix).
+- Good looking html. check
+- If time over minute hides minutes in html (fix). check
+- Saving scores to .json file fixed. check
 
+RELEASE 4
+- Password
+- Fetch scores in desc order, top10 and fetch by id in game.
+- Tests.
+- ReadMe.
+- Screencast.
+- pdoc. 
 
 
