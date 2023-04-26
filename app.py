@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
 import os
-from password import password
+import password_store
 
 app = Flask(__name__)
 
@@ -38,10 +38,15 @@ def verify_password(password, salt, hashed_password):
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
+    password = request.args.get("password") # Get the password from the query parameters
+    # Check if the provided password matches the pre-defined password
+    if password != password_store.password:
+        return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
+
     # Get the values of the "sort" and "limit" query parameters
     sort_param = request.args.get("sort")
     limit_param = request.args.get("limit")
-
+    
     # Load the high scores from the file, sorting in descending order if requested
     if sort_param == "desc":
         high_scores = load_high_scores(reverse=True)
@@ -61,8 +66,13 @@ def get_high_scores():
     # Return the high scores in JSON format
     return jsonify(high_scores)
 
+
 @app.route('/highscores/<int:id>', methods=['GET'])
 def get_high_score(id):
+    password = request.args.get("password") # Get the password from the query parameters
+    # Check if the provided password matches the pre-defined password
+    if password != password_store.password:
+        return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
     # Load the high scores from the file
     high_scores = load_high_scores()
 
@@ -77,6 +87,10 @@ def get_high_score(id):
 
 @app.route('/highscores', methods=['POST'])
 def add_high_score():
+    password = request.args.get("password") # Get the password from the query parameters
+    # Check if the provided password matches the pre-defined password
+    if password != password_store.password:
+        return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
     # Load the existing high scores from the file
     high_scores = load_high_scores()
     # Get the name and time from the request body
@@ -102,6 +116,11 @@ def add_high_score():
 
 @app.route('/highscores/<int:id>', methods=['DELETE'])
 def delete_high_score(id):
+    password = request.args.get("password") # Get the password from the query parameters
+    # Check if the provided password matches the pre-defined password
+    if password != password_store.password:
+        return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
+
     # Load the list of high scores from the JSON file
     high_scores = load_high_scores()
 
@@ -125,8 +144,13 @@ def delete_high_score(id):
         # If the specified ID does not exist in the list of high scores, return a 404 Not Found error
         abort(404)
 
+
 @app.route('/')
 def display_high_scores():
+    password = request.args.get("password") # Get the password from the query parameters
+    # Check if the provided password matches the pre-defined password
+    if password != password_store.password:
+        return jsonify({"error": "Invalid password"}), 401 # Return an error response with status code 401 (Unauthorized)
     # Load the high scores from the high_scores_file
     sorted_scores = load_high_scores()
     # Check if there are any high scores
