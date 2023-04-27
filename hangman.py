@@ -288,30 +288,34 @@ def display_all_scores(highscores):
     # Display all high scores in the console
     print("High Scores:")
     for score in highscores:
+        id = score['id']
         name = score['name']
         time_parts = score['time'].split(':')
         time = int(time_parts[0]) * 60 + int(time_parts[1])
         if time >= 60:
             minutes = time // 60
             seconds = time % 60
-            print(f"{minutes}min {seconds}sec, {name}")
+            print(f"{id}: {minutes}min {seconds}sec, {name}")
         else:
-            print(f"{time}sec, {name}")
+            print(f"{id}: {time}sec, {name}")
+
 
 def display_scores_descending(highscores):
     # Display high scores in descending order in the console
     sorted_scores = sorted(highscores, key=lambda score: int(score['time'].replace(':', '')), reverse=True)
     print("High Scores (descending order):")
     for score in sorted_scores:
+        id = score['id']
         name = score['name']
         time_parts = score['time'].split(':')
         time = int(time_parts[0]) * 60 + int(time_parts[1])
         if time >= 60:
             minutes = time // 60
             seconds = time % 60
-            print(f"{minutes}min {seconds}sec, {name}")
+            print(f"{id}: {minutes}min {seconds}sec, {name}")
         else:
-            print(f"{time}sec, {name}")
+            print(f"{id}: {time}sec, {name}")
+
 
 def display_score_by_id(highscores):
     # Display a high score by ID in the console
@@ -330,10 +334,11 @@ def display_score_by_id(highscores):
             if time >= 60:
                 minutes = time // 60
                 seconds = time % 60
-                print(f"{minutes}min {seconds}sec, {name}")
+                print(f"{minutes}min {seconds}sec, {name}, ID: {score['id']}")
             else:
-                print(f"{time}sec, {name}")
+                print(f"{time}sec, {name}, ID: {score['id']}")
             return
+
     print("Score not found.")
 
 
@@ -358,14 +363,16 @@ def display_top_scores(highscores):
         # Display the top n high scores in the console
         print(f"Top {n} High Scores:")
         for i, score in enumerate(highscores[:n]):
+            id = score['id']
             name = score['name']
             time_parts = score['time'].split(':')
             time = int(time_parts[0]) * 60 + int(time_parts[1])
             if time >= 60:
                 minutes = time // 60
                 seconds = time % 60
-                print(f"{i+1}. {minutes}min {seconds}sec, {name}")
+                print(f"{i+1}. {id}: {minutes}min {seconds}sec, {name}")
             else:
-                print(f"{i+1}. {time}sec, {name}")
+                print(f"{i+1}. {id}: {time}sec, {name}")
+
         
 main()

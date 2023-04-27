@@ -8,3 +8,5 @@ hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 # Store the hashed password
 password_hash = hashed_password
+
+print(password_hash)

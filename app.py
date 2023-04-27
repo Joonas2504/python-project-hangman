@@ -23,20 +23,6 @@ def load_high_scores(reverse=False):
 
     return high_scores
 
-def hash_password(password):
-    # Generate a salt for the password
-    salt = bcrypt.gensalt()
-    # Hash the password using the salt
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    # Return the hashed password and the salt
-    return hashed_password, salt
-
-def verify_password(password, salt, hashed_password):
-    # Hash the password using the salt
-    secret_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    # Compare the hashed input password to the hashed password
-    return secret_password == hashed_password
-
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
     password = request.args.get("password") # Get the password from the query parameters
@@ -98,8 +84,8 @@ def add_high_score():
     time = request.json.get('time')
     # Add the new high score to the existing scores
     high_scores.append({'name': name, 'time': time})
-    # Sort the high scores by time in ascending order
-    high_scores = sorted(high_scores, key=lambda x: x["time"])
+    # Sort the high scores by time in descending order
+    high_scores = sorted(high_scores, key=lambda x: x["time"], reverse=True)
     # Truncate the list to the top 50 high scores
     high_scores = high_scores[:50]
     # Assign IDs to the high scores
@@ -111,7 +97,7 @@ def add_high_score():
         json.dump(high_scores, f)
 
     # Send the response to the client
-    return jsonify({'id': high_scores[-1]['id']})
+    return jsonify({'id': high_scores[0]['id']})
 
 @app.route('/highscores/<int:id>', methods=['DELETE'])
 def delete_high_score(id):
