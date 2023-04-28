@@ -1,19 +1,24 @@
-GET https://python-project-hangman-46b9.onrender.com/highscores?password=hirttoukko
+GET https://python-project-hangman-46b9.onrender.com?password=hirttoukko
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com/highscores/1
+GET https://python-project-hangman-46b9.onrender.com/6?password=hirttoukko
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com/highscores?sort=desc
+GET https://python-project-hangman-46b9.onrender.com?sort=desc&password=hirttoukko
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com/highscores?sort=asc&limit=10
+GET https://python-project-hangman-46b9.onrender.com?sort=asc&limit=5&password=hirttoukko
 
 ###
 
-DELETE https://python-project-hangman-46b9.onrender.com/highscores/1
+DELETE https://python-project-hangman-46b9.onrender.com/highscores/6?password=hirttoukko
 
 ###
+
+POST https://python-project-hangman-46b9.onrender.com/highscores?password=hirttoukko
+content-type: application/json
+
+{ "name": "Joonas", "time": "00:40" }

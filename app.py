@@ -1,3 +1,28 @@
+"""
+This module provides functions for managing high scores in a game. It includes functions for loading and saving high scores from a file, 
+retrieving individual high scores by ID, and adding new high scores to the list.
+
+The high scores are stored in a JSON file with the following format:
+
+[
+    {
+        "id": 1,
+        "name": "Player1",
+        "time": "01:23"
+    },
+    {
+        "id": 2,
+        "name": "Player2",
+        "time": "03:45"
+    },
+    ...
+]
+
+The high scores can be retrieved and displayed in both JSON and HTML format, and password protection is used 
+to ensure that only authorized users can view or modify the high scores.
+
+This module should be used as part of a larger application that includes a game that generates high scores.
+"""
 from flask import Flask, request, jsonify, render_template, abort, make_response
 import json
 from datetime import timedelta
@@ -11,11 +36,12 @@ app = Flask(__name__)
 high_scores_file = "high_scores.json"
 
 def load_high_scores(reverse=False):
-    """Load and sort the high scores from the 'high_scores.json' file.
+    """
+    Load and sort the high scores from the 'high_scores.json' file.
 
     Args:
         reverse (bool, optional): If True, sort the high scores in descending order (highest score first).
-            If False, sort the high scores in ascending order (lowest score first). Defaults to False.
+        If False, sort the high scores in ascending order (lowest score first). Defaults to False.
 
     Returns:
         list: A list of high score dictionaries, sorted by score.
@@ -32,7 +58,6 @@ def load_high_scores(reverse=False):
         high_scores.sort(key=lambda score: score['time'], reverse=reverse)
 
     return high_scores
-
 
 @app.route('/highscores', methods=['GET'])
 def get_high_scores():
@@ -52,6 +77,9 @@ def get_high_scores():
     
     Returns:
         A JSON response containing the high scores.
+
+    Raises:
+        HTTPException: A 401 Unauthorized error if the provided password is incorrect.
     """
     password = request.args.get("password") # Get the password from the query parameters
     # Check if the provided password matches the pre-defined password
@@ -116,7 +144,6 @@ def get_high_score(id):
     # If the high score with the specified ID doesn't exist, return a 404 error
     abort(404)
 
-
 @app.route('/highscores', methods=['POST'])
 def add_high_score():
     """
@@ -134,6 +161,9 @@ def add_high_score():
 
     Returns:
         JSON response with the ID of the added high score.
+
+    Raises:
+        HTTPException: A 401 Unauthorized error if the provided password is incorrect.
     """
     password = request.args.get("password") # Get the password from the query parameters
     # Check if the provided password matches the pre-defined password
@@ -213,7 +243,6 @@ def display_high_scores():
     Raises:
         HTTPException: A 401 Unauthorized error if the provided password is incorrect.
     """
-
     password = request.args.get("password") # Get the password from the query parameters
     # Check if the provided password matches the pre-defined password
     if password != password_store.password:
@@ -256,8 +285,6 @@ def display_high_scores():
     # Pass the high_scores_formatted variable to the render_template function
     # This function generates an HTML page using the high_scores.html template and the high_scores_formatted data
     return render_template('high_scores.html', high_scores=high_scores_formatted)
-
-
 
 if __name__ == '__main__':
     app.run()

@@ -1,3 +1,11 @@
+"""
+Hangman game module.
+
+This module contains functions to run a command-line implementation of the Hangman game,
+including starting a new game, getting user input, checking user guesses, and displaying
+game information.
+
+"""
 import random
 import time
 import requests
@@ -7,6 +15,10 @@ import os
 import json
 
 def main():
+    """
+    Displays a menu for the user to choose between playing the game, displaying high scores, or exiting the program.
+
+    """
     exit_menu = False
 
     while not exit_menu:
@@ -23,8 +35,15 @@ def main():
         else:
             print("Invalid input. Please enter a valid choice.")
 
-
 def hangman():
+    """
+    Executes the Hangman game.
+
+    The player is prompted to guess a letter to determine a word. If the letter is in the word, the letter is revealed in
+    the word. If the letter is not in the word, a part of the hangman is drawn on the screen. The game ends when the player
+    has guessed three words, or the hangman has been fully drawn.
+
+    """
     # Select three random words from the list
     words = random.sample(words_to_list(), 3)
 
@@ -78,8 +97,14 @@ def hangman():
         guessed_letters.clear()
         incorrect_guesses = 0
 
-
 def words_to_list():
+    """
+    This function reads words from a text file and returns a list of the words.
+
+    Returns:
+        list: A list of words read from the file.
+
+    """
     # Open the "words.txt" file and read the lines into a list
     with open("words.txt", "r") as f:
         words = [line.strip() for line in f]
@@ -87,6 +112,17 @@ def words_to_list():
     return words
 
 def is_valid_guess(guess, guessed_letters):
+    """
+    Checks if the user's guess is a valid guess.
+
+    Args:
+        guess (str): A string representing the user's guess.
+        guessed_letters (set): A set containing all the letters the user has guessed so far.
+
+    Returns:
+        bool: Returns True if the guess is valid, otherwise False.
+
+    """
     # Check if the guess is valid
     if len(guess) != 1 or not guess.isalpha(): # Check if guess is a single alphabetic character
         print("Invalid guess. Please enter a single letter.")
@@ -97,6 +133,16 @@ def is_valid_guess(guess, guessed_letters):
     return True
 
 def update_word_display(guess, secret_word, word_display):
+    """
+    This function takes three arguments, guess (a string), secret_word (a string), and word_display (a string).
+
+    The function updates word_display to show the guessed letter(s) by iterating over the characters in secret_word, and checking if each character is equal to guess, a space, or a hyphen. 
+    If the character is equal to guess, word_display is updated to reveal the guessed letter. If the character is a space or a hyphen, word_display is updated to reveal the space or hyphen.
+
+    Returns:
+        The updated word_display string.
+
+    """
     # Update word_display to show the guessed letter(s)
     for i in range(len(secret_word)):
         if secret_word[i] == guess:  # if the guessed letter is found in the secret word
@@ -111,6 +157,20 @@ def update_word_display(guess, secret_word, word_display):
     return word_display
 
 def update_game_state(guess, secret_word, guessed_letters, incorrect_guesses):
+    """
+    Updates the game state by adding the guessed letter to the guessed_letters set and incrementing the 
+    incorrect_guesses count if the guess is not in the secret_word.
+
+    Args:
+        guess (str): The letter that the player has guessed.
+        secret_word (str): The word that the player is trying to guess.
+        guessed_letters (set): A set of letters that the player has already guessed.
+        incorrect_guesses (int): The number of incorrect guesses the player has made so far.
+
+    Returns:
+        tuple: A tuple containing the updated guessed_letters set and incorrect_guesses count.
+
+    """
     # Add guessed letter to guessed_letters set
     guessed_letters.add(guess)
     # Increment incorrect_guesses count if guess is not in secret_word
@@ -121,6 +181,21 @@ def update_game_state(guess, secret_word, guessed_letters, incorrect_guesses):
     return guessed_letters, incorrect_guesses
 
 def is_game_over(secret_word, word_display, incorrect_guesses, max_guesses, start_time):
+    """
+    Check if the game is over by either checking if the player has exceeded the maximum number of guesses
+    or if the player has successfully guessed the word.
+
+    Args:
+        secret_word (str): The word to be guessed by the player.
+        word_display (str): The current state of the word display.
+        incorrect_guesses (int): The number of incorrect guesses made by the player.
+        max_guesses (int): The maximum number of guesses allowed for the player.
+        start_time (float): The start time of the game.
+
+    Returns:
+        bool: Returns True if the game is over, otherwise returns False.
+
+    """
     if incorrect_guesses >= max_guesses:
         print("Game over! You ran out of guesses.")
         return True
@@ -133,6 +208,14 @@ def is_game_over(secret_word, word_display, incorrect_guesses, max_guesses, star
         return False
 
 def print_game_state(word_display, guesses_remaining):
+    """
+    Prints the current game state to the console, including the word display and number of guesses remaining.
+
+    Args:
+        word_display (str): The current state of the word display, with correctly guessed letters filled in and unknown letters represented by hyphens.
+        guesses_remaining (int): The number of guesses remaining before the game ends.
+
+    """
     # Print the current game state, including the word display and number of guesses remaining.
     print(f"\nWord: {word_display}")
     print(f"Guesses remaining: {guesses_remaining}")
@@ -140,6 +223,7 @@ def print_game_state(word_display, guesses_remaining):
 def draw_gallow(num_wrong_guesses):
     """
     Draw the gallow based on the number of wrong guesses made so far.
+
     """
     if num_wrong_guesses == 0:
         print("""  _______
@@ -198,9 +282,20 @@ _|___""")
  |
 _|___""")
 
-
-
 def is_name(name):
+    """
+    Check if a given name is valid.
+    The name is considered valid if it is a string with length between 2 and 20 characters and contains only
+    alphanumeric characters, underscores (_), hyphens (-), or special characters (!, @, #, $, %, ^, &, *).
+
+    Args:
+        name (str): The name to be checked.
+
+    Returns:
+        str: The name if it is valid.
+        False: If the name is not valid.
+
+    """
     # Regular expression to check if name is valid
     regex = r'^[a-zA-Z0-9_-]{2,20}$|^[a-zA-Z0-9_!@-]{2,20}$'
     if re.match(regex, name):
@@ -209,6 +304,14 @@ def is_name(name):
 
 # Function to send a high score to the server
 def send_highscore(name, time):
+    """
+    Sends the user's high score to the high score API endpoint and updates the local high score file.
+
+    Args:
+        name (str): The name of the player.
+        time (float): The time it took the player to guess the word.
+
+    """
     # Check if the high_scores.json file exists, if not create an empty file
     if not os.path.exists('high_scores.json'):
         with open('high_scores.json', 'w') as f:
@@ -256,6 +359,10 @@ def send_highscore(name, time):
         print(f'Error sending high score: {response.content}')
 
 def high_scores():
+    """
+    This function retrieves the high scores from an API endpoint and provides the user with a menu to display the scores.
+    
+    """
     while True:
         # Send a GET request to the high scores API endpoint
         response = requests.get('https://python-project-hangman-46b9.onrender.com/highscores?password=hirttoukko')
@@ -285,6 +392,13 @@ def high_scores():
             print("Invalid input. Please enter a valid choice.")
 
 def display_all_scores(highscores):
+    """
+    Displays all high scores in the console.
+
+    Args:
+        highscores (list): A list containing highscores in JSON format
+
+    """
     # Display all high scores in the console
     print("High Scores:")
     for score in highscores:
@@ -299,8 +413,16 @@ def display_all_scores(highscores):
         else:
             print(f"{id}: {time}sec, {name}")
 
-
 def display_scores_descending(highscores):
+    """
+    display_all_scores(highscores)
+
+    Displays all high scores in descending order in the console.
+
+    Args:
+        highscores (list): A list containing highscores in JSON format
+
+    """
     # Display high scores in descending order in the console
     sorted_scores = sorted(highscores, key=lambda score: int(score['time'].replace(':', '')), reverse=True)
     print("High Scores (descending order):")
@@ -316,9 +438,15 @@ def display_scores_descending(highscores):
         else:
             print(f"{id}: {time}sec, {name}")
 
-
+# Display a high score by ID in the console
 def display_score_by_id(highscores):
-    # Display a high score by ID in the console
+    """
+    Display a high score by ID in the console
+    
+    Args:
+        highscores (list): A list containing highscores in JSON format
+    
+    """
     while True:
         score_id = input("Enter the score ID: ")
         if not score_id.isdigit():
@@ -341,9 +469,15 @@ def display_score_by_id(highscores):
 
     print("Score not found.")
 
-
+# Display top high scores in the console
 def display_top_scores(highscores):
-    # Display top high scores in the console
+    """
+    Displays top high scores in the console
+    
+    Args:
+        highscores (list): A list containing highscores in JSON format
+    
+    """
     while True:
         n = input("Enter the number of top scores to display: ")
         if n.isdigit():
@@ -374,5 +508,5 @@ def display_top_scores(highscores):
             else:
                 print(f"{i+1}. {id}: {time}sec, {name}")
 
-        
-main()
+if __name__ == '__main__':
+    main()
