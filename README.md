@@ -11,9 +11,9 @@ Joonas Moilanen
 
 # Screenshots
 
-![Main](images/hangman main.png)
-![Game](images/hangman gameplay.png)
-![Scores](images/hangman display scores.png)
+![Main](C:\Users\Joona\python-project-hangman\images\hangman main.png)
+![Game](C:\Users\Joona\python-project-hangman\images\hangman gameplay.png)
+![Scores](C:\Users\Joona\python-project-hangman\images\hangman display scores.png)
 
 # Tech/framework used
 
@@ -42,4 +42,4 @@ High scores are listed in cloud. Display them by following url:
 
 # Screencast
 
-[![Screencast](images/screencast img.jpg)](https://youtu.be/wnpc4Bgc1uQ)
+- https://youtu.be/wnpc4Bgc1uQ
