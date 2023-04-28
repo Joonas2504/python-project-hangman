@@ -9,12 +9,6 @@ Project consists of two sub-projects: Frontend which is hangman and backend whic
 
 Joonas Moilanen
 
-# Screenshots
-
-![Main](C:\Users\Joona\python-project-hangman\images\hangman main.png)
-![Game](C:\Users\Joona\python-project-hangman\images\hangman gameplay.png)
-![Scores](C:\Users\Joona\python-project-hangman\images\hangman display scores.png)
-
 # Tech/framework used
 
 Project is done by using Python. Modules i have used are: flask, jsonify, request, render_template, abort, make_response, json, timedelta, os, bcrypt, random, time, requests and re
