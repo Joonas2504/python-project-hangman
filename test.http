@@ -2,7 +2,7 @@ GET https://python-project-hangman-46b9.onrender.com?password=hirttoukko
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com/6?password=hirttoukko
+GET https://python-project-hangman-46b9.onrender.com/3?password=hirttoukko
 
 ###
 
@@ -10,11 +10,11 @@ GET https://python-project-hangman-46b9.onrender.com?sort=desc&password=hirttouk
 
 ###
 
-GET https://python-project-hangman-46b9.onrender.com?sort=asc&limit=5&password=hirttoukko
+GET https://python-project-hangman-46b9.onrender.com?sort=asc&limit=3&password=hirttoukko
 
 ###
 
-DELETE https://python-project-hangman-46b9.onrender.com/highscores/6?password=hirttoukko
+DELETE https://python-project-hangman-46b9.onrender.com/highscores/1?password=hirttoukko
 
 ###
 

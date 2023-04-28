@@ -134,11 +134,12 @@ def is_valid_guess(guess, guessed_letters):
     
 def update_word_display(guess, secret_word, word_display):
     """
-    This function takes three arguments, guess (a string), secret_word (a string), and word_display (a string).
-
     The function updates word_display to show the guessed letter(s) by iterating over the characters in secret_word, and checking if each character is equal to guess, a space, or a hyphen. 
     If the character is equal to guess, word_display is updated to reveal the guessed letter. If the character is a space or a hyphen, word_display is updated to reveal the space or hyphen.
-
+    Args:
+        guess (a string)
+        secret_word (a string)
+        word_display (a string)
     Returns:
         The updated word_display string.
 
@@ -202,7 +203,7 @@ def is_game_over(secret_word, word_display, incorrect_guesses, max_guesses, star
     elif "-" not in word_display:
         end_time = time.time()
         total_time = int(end_time - start_time)
-        print(f"Congratulations! You guessed the word '{secret_word}' in {total_time} seconds.")
+        print(f"You guessed the word {secret_word}.")
         return True
     else:
         return False
@@ -407,8 +408,8 @@ def display_all_scores(highscores):
         time_parts = score['time'].split(':')
         time = int(time_parts[0]) * 60 + int(time_parts[1])
         if time >= 60:
-            minutes = time // 60
-            seconds = time % 60
+            minutes = time // 60 # the floor division // rounds the result down to the nearest whole number
+            seconds = time % 60 # Modulus: gives the remainder when the first number is divided from the second number.
             print(f"{id}: {minutes}min {seconds}sec, {name}")
         else:
             print(f"{id}: {time}sec, {name}")

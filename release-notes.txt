@@ -26,4 +26,5 @@ RELEASE 4
 - Screencast.
 - pdoc. 
 
-
+Toimii: DELETE http://127.0.0.1:5000/highscores/3?password=hirttoukko
+Ei toimi: DELETE https://python-project-hangman-46b9.onrender.com/highscores/3?password=hirttoukko
