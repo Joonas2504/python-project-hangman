@@ -1,82 +1,22 @@
 [
     {
-        "name": "Tylli",
-        "time": "00:13",
+        "name": "Jemma",
+        "time": "00:17",
         "id": 1
     },
     {
-        "name": "Kettu",
-        "time": "00:15",
+        "name": "Tinttu",
+        "time": "00:18",
         "id": 2
     },
     {
-        "name": "Doo",
-        "time": "00:16",
+        "name": "Joonas",
+        "time": "00:21",
         "id": 3
     },
     {
-        "name": "Jemma",
-        "time": "00:18",
-        "id": 4
-    },
-    {
         "name": "Bambi",
-        "time": "00:18",
-        "id": 5
-    },
-    {
-        "name": "Balto",
-        "time": "00:18",
-        "id": 6
-    },
-    {
-        "name": "Vilja",
-        "time": "00:24",
-        "id": 7
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 8
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 9
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 10
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 11
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 12
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 13
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 14
-    },
-    {
-        "name": "Joonas",
-        "time": "00:40",
-        "id": 15
-    },
-    {
-        "name": "Vilja",
-        "time": "00:45",
-        "id": 16
+        "time": "00:29",
+        "id": 4
     }
 ]

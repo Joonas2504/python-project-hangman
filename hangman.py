@@ -124,14 +124,14 @@ def is_valid_guess(guess, guessed_letters):
 
     """
     # Check if the guess is valid
-    if len(guess) != 1 or not guess.isalpha(): # Check if guess is a single alphabetic character
+    if guess is None or len(guess) != 1 or not guess.isalpha(): # Check if guess is a single alphabetic character
         print("Invalid guess. Please enter a single letter.")
         return False
     if guess in guessed_letters: # Check if guess has already been guessed
         print("You've already guessed that letter. Try again.")
         return False
     return True
-
+    
 def update_word_display(guess, secret_word, word_display):
     """
     This function takes three arguments, guess (a string), secret_word (a string), and word_display (a string).
