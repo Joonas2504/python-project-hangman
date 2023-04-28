@@ -10,7 +10,7 @@ Project consists of two sub-projects: Frontend which is hangman and backend whic
 Joonas Moilanen
 
 # Screenshots
-
+![Alt text](C:\Users\Joona\OneDrive\Työpöytä\hangman main.png "Title")
 ![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman main.png")
 ![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman gameplay.png")
 ![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman display scores.png")
