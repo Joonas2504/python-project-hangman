@@ -10,10 +10,10 @@ Project consists of two sub-projects: Frontend which is hangman and backend whic
 Joonas Moilanen
 
 # Screenshots
-![Alt text](C:\Users\Joona\OneDrive\Työpöytä\hangman main.png "Title")
-![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman main.png")
-![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman gameplay.png")
-![image]("C:\Users\Joona\OneDrive\Työpöytä\hangman display scores.png")
+
+![Main](images/hangman main.png)
+![Game](images/hangman gameplay.png)
+![Scores](images/hangman display scores.png)
 
 # Tech/framework used
 
@@ -42,4 +42,4 @@ High scores are listed in cloud. Display them by following url:
 
 # Screencast
 
-[![Screencast]("C:\Users\Joona\OneDrive\Työpöytä\screencast img.jpg")](https://youtu.be/wnpc4Bgc1uQ)
+[![Screencast](images/screencast img.jpg)](https://youtu.be/wnpc4Bgc1uQ)
