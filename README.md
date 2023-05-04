@@ -36,4 +36,4 @@ High scores are listed in cloud. Display them by following url:
 
 # Screencast
 
-- https://youtu.be/wnpc4Bgc1uQ
+- https://youtu.be/1ssgJRwQ4us
