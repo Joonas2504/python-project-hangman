@@ -410,9 +410,9 @@ def display_all_scores(highscores):
         if time >= 60:
             minutes = time // 60 # the floor division // rounds the result down to the nearest whole number
             seconds = time % 60 # Modulus: gives the remainder when the first number is divided from the second number.
-            print(f"{id}: {minutes}min {seconds}sec, {name}")
+            print(f" - {id}: {minutes}min {seconds}sec, {name} \n")
         else:
-            print(f"{id}: {time}sec, {name}")
+            print(f" - {id}: {time}sec, {name} \n")
 
 def display_scores_descending(highscores):
     """
@@ -435,9 +435,9 @@ def display_scores_descending(highscores):
         if time >= 60:
             minutes = time // 60
             seconds = time % 60
-            print(f"{id}: {minutes}min {seconds}sec, {name}")
+            print(f" - {id}: {minutes}min {seconds}sec, {name} \n")
         else:
-            print(f"{id}: {time}sec, {name}")
+            print(f" - {id}: {time}sec, {name} \n")
 
 # Display a high score by ID in the console
 def display_score_by_id(highscores):
@@ -463,9 +463,9 @@ def display_score_by_id(highscores):
             if time >= 60:
                 minutes = time // 60
                 seconds = time % 60
-                print(f"{minutes}min {seconds}sec, {name}, ID: {score['id']}")
+                print(f" - {minutes}min {seconds}sec, {name}, ID: {score['id']} \n")
             else:
-                print(f"{time}sec, {name}, ID: {score['id']}")
+                print(f" - {time}sec, {name}, ID: {score['id']} \n")
             return
 
     print("Score not found.")
@@ -505,9 +505,9 @@ def display_top_scores(highscores):
             if time >= 60:
                 minutes = time // 60
                 seconds = time % 60
-                print(f"{i+1}. {id}: {minutes}min {seconds}sec, {name}")
+                print(f" - {id}: {minutes}min {seconds}sec, {name} \n")
             else:
-                print(f"{i+1}. {id}: {time}sec, {name}")
+                print(f" - {id}: {time}sec, {name} \n")
 
 if __name__ == '__main__':
     main()
